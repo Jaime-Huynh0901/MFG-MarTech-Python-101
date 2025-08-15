@@ -12,7 +12,7 @@
     <!-- Application Structure Plan: A multi-section single-page application with a persistent sidebar navigation. This non-linear structure allows users to freely explore different Python concepts at their own pace, which is more effective for learning than a static, linear document. The sections are logically grouped into: Welcome, Core Concepts (with sub-navigation), an interactive Code Playground, and Resources. The key interaction is the Code Playground, which simulates the execution of a Python script to provide immediate feedback and reinforce learning. This design prioritizes user engagement and self-directed exploration. -->
     <!-- Visualization & Content Choices: 
         - Report Info: "Why Python is Popular" list -> Goal: Inform/Organize -> Viz: Styled list with icons (Unicode) -> Interaction: Hover effects -> Justification: More visually engaging than a standard list.
-        - Report Info: All code snippets -> Goal: Inform/Allow Practice -> Viz: Styled <pre><code> blocks -> Interaction: "Copy to Clipboard" button -> Justification: Facilitates easy use of code examples.
+        - Report Info: All code snippets -> Goal: Inform/Allow Practice -> Viz: Styled <pre><code> blocks -> Interaction: "Copy to Clipboard" button -> Justifies easy use of code examples.
         - Report Info: Data Structures (List, Tuple, Dict) -> Goal: Compare/Inform -> Viz: Three-column layout -> Interaction: Clear side-by-side visual comparison -> Justification: Helps beginners quickly grasp the key differences.
         - Report Info: Final "Putting It Together" example -> Goal: Synthesize/Engage -> Viz: Interactive Code Playground with code, output, and run button -> Interaction: A "Run" button that simulates the script's I/O -> Justification: Transforms a static example into an active, hands-on learning experience.
         - Charts: No quantitative data is present in the source report, so no charts (Chart.js/Plotly) are used. The focus is on conceptual and code-based learning. -->
@@ -50,12 +50,13 @@
             color: #f8f8f2;
             border-radius: 0.5rem;
             padding: 1rem;
+            padding-bottom: 2.5rem; /* Added padding to make space for the button */
             position: relative;
             overflow-x: auto;
         }
         .code-block button {
             position: absolute;
-            top: 0.5rem;
+            bottom: 0.5rem; /* Changed from top to bottom */
             right: 0.5rem;
             background-color: #444;
             color: white;
@@ -81,6 +82,27 @@
             padding: 1rem;
             min-height: 150px;
             white-space: pre-wrap;
+            position: relative; /* Needed for positioning the input field */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Push content to the bottom */
+        }
+        .output-area-content {
+            flex-grow: 1; /* Allow content to take up available space */
+            overflow-y: auto; /* Enable scrolling for output */
+            padding-bottom: 1rem; /* Space above input */
+        }
+        .console-input {
+            background-color: #333;
+            color: #d4d4d4;
+            border: 1px solid #555;
+            padding: 0.5rem;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0.25rem;
+            margin-top: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
         }
         .btn-primary {
             background-color: #8d6e63;
@@ -227,20 +249,20 @@
                 <div class="space-y-6">
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Integers (`int`) - Whole numbers.</h3>
-                        <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>age = 30</code><button class="explain-code-btn">✨ Explain Code</button></div>
+                        <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>age = 30</code><button class="explain-code-btn" data-code-id="var-int">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Floats (`float`) - Numbers with a decimal point.</h3>
-                        <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>price = 19.99</code><button class="explain-code-btn">✨ Explain Code</button></div>
+                        <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>price = 19.99</code><button class="explain-code-btn" data-code-id="var-float">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Strings (`str`) - Sequences of characters.</h3>
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>name = "Alice"
-message = 'Hello, world!'</code><button class="explain-code-btn">✨ Explain Code</button></div>
+message = 'Hello, world!'</code><button class="explain-code-btn" data-code-id="var-string">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Booleans (`bool`) - Represents `True` or `False`.</h3>
-                        <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>is_active = True</code><button class="explain-code-btn">✨ Explain Code</button></div>
+                        <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>is_active = True</code><button class="explain-code-btn" data-code-id="var-bool">✨ Explain Code</button></div>
                     </div>
                 </div>
 
@@ -264,19 +286,19 @@ message = 'Hello, world!'</code><button class="explain-code-btn">✨ Explain Cod
                         <h3 class="text-xl font-semibold mb-2">Arithmetic Operators</h3>
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>result = 10 + 5    # Addition: 15
 power = 2 ** 3     # Exponentiation: 8
-remainder = 10 % 3 # Modulus: 1</code><button class="explain-code-btn">✨ Explain Code</button></div>
+remainder = 10 % 3 # Modulus: 1</code><button class="explain-code-btn" data-code-id="op-arithmetic">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Comparison Operators</h3>
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>10 == 10  # Equal: True
 5 > 10    # Greater than: False
-'a' != 'b' # Not equal: True</code><button class="explain-code-btn">✨ Explain Code</button></div>
+'a' != 'b' # Not equal: True</code><button class="explain-code-btn" data-code-id="op-comparison">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Logical Operators</h3>
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>(5 > 3) and (10 < 20) # and: True
 (5 < 3) or (10 < 20)  # or: True
-not (5 == 5)          # not: False</code><button class="explain-code-btn">✨ Explain Code</button></div>
+not (5 == 5)          # not: False</code><button class="explain-code-btn" data-code-id="op-logical">✨ Explain Code</button></div>
                     </div>
                 </div>
 
@@ -306,15 +328,14 @@ if temperature > 30:
 elif temperature > 20:
     print("It's a pleasant day.")
 else:
-    print("It's a bit chilly.")</code><button class="explain-code-btn">✨ Explain Code</button></div>
+    print("It's a bit chilly.")</code><button class="explain-code-btn" data-code-id="cf-if-elif-else">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-2xl font-semibold mb-2">Iteration: `for` Loops</h3>
-                        <p class="mb-4">Iterate over a sequence (like a list or a range of numbers).</p>
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code># Loop through a list of fruits
 fruits = ["apple", "banana", "cherry"]
 for fruit in fruits:
-    print(fruit)</code><button class="explain-code-btn">✨ Explain Code</button></div>
+    print(fruit)</code><button class="explain-code-btn" data-code-id="cf-for-loop">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-2xl font-semibold mb-2">Conditional Repetition: `while` Loops</h3>
@@ -322,7 +343,7 @@ for fruit in fruits:
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>count = 0
 while count < 3:
     print("Count:", count)
-    count += 1</code><button class="explain-code-btn">✨ Explain Code</button></div>
+    count += 1</code><button class="explain-code-btn" data-code-id="cf-while-loop">✨ Explain Code</button></div>
                     </div>
                 </div>
 
@@ -348,21 +369,21 @@ while count < 3:
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>my_list = [1, "hello"]
 my_list.append(True)
 my_list[0] = "world"
-print(my_list)</code><button class="explain-code-btn">✨ Explain Code</button></div>
+print(my_list)</code><button class="explain-code-btn" data-code-id="ds-list">✨ Explain Code</button></div>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-sm">
                         <h3 class="text-2xl font-bold text-[#5d4037] mb-3">Tuples `()`</h3>
                         <p class="mb-4 text-gray-600"><strong class="text-gray-800">Ordered</strong> and <strong class="text-gray-800">immutable</strong> (unchangeable). Useful for data that should not be altered.</p>
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>my_tuple = (1, "hello")
 print(my_tuple[1])
-# my_tuple[0] = 5 # Error!</code><button class="explain-code-btn">✨ Explain Code</button></div>
+# my_tuple[0] = 5 # Error!</code><button class="explain-code-btn" data-code-id="ds-tuple">✨ Explain Code</button></div>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-sm">
                         <h3 class="text-2xl font-bold text-[#5d4037] mb-3">Dictionaries `{}`</h3>
                         <p class="mb-4 text-gray-600"><strong class="text-gray-800">Key-Value pairs</strong> and <strong class="text-gray-800">mutable</strong>. Perfect for mapping unique keys to specific values.</p>
                         <div class="code-block"><button onclick="copyCode(this)">Copy</button><code>person = {"name": "Bob"}
 person["age"] = 25
-print(person["name"])</code><button class="explain-code-btn">✨ Explain Code</button></div>
+print(person["name"])</code><button class="explain-code-btn" data-code-id="ds-dict">✨ Explain Code</button></div>
                     </div>
                 </div>
 
@@ -390,7 +411,7 @@ def greet(name):
     print(f"Hello, {name}!")
 
 # Call the function
-greet("Team")</code><button class="explain-code-btn">✨ Explain Code</button></div>
+greet("Team")</code><button class="explain-code-btn" data-code-id="func-define-call">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-2xl font-semibold mb-2">Functions with Return Values</h3>
@@ -399,7 +420,7 @@ greet("Team")</code><button class="explain-code-btn">✨ Explain Code</button></
     return a + b
 
 sum_result = add_numbers(10, 7)
-print(f"The sum is: {sum_result}")</code><button class="explain-code-btn">✨ Explain Code</button></div>
+print(f"The sum is: {sum_result}")</code><button class="explain-code-btn" data-code-id="func-return">✨ Explain Code</button></div>
                     </div>
                 </div>
 
@@ -416,37 +437,68 @@ print(f"The sum is: {sum_result}")</code><button class="explain-code-btn">✨ Ex
 
             <!-- Code Playground Section -->
             <section id="playground" class="content-section">
-                <h2 class="text-4xl font-bold text-[#5d4037] mb-4">Code Playground</h2>
-                <p class="text-lg text-gray-600 mb-6">Let's put it all together! This example calculates a user's approximate age in days. Click "Run Simulation" to see it in action. You will be prompted for input.</p>
+                <h2 class="text-4xl font-bold text-[#5d4037] mb-4">Code Playground: Time Zone Converter</h2>
+                <p class="text-lg text-gray-600 mb-6">Enter a time in PST (Pacific Standard Time), and see it converted to EST, CST, and UTC. Click "Run Simulation" to try it out!</p>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Python Code</h3>
-                        <div class="code-block h-full"><button onclick="copyCode(this)">Copy</button><code>def calculate_days_old(years):
-    # Ignores leap years for simplicity
-    return years * 365
+                        <div class="code-block h-full"><button onclick="copyCode(this)">Copy</button><code>def format_time(hour, minute):
+    # Ensures hour is within 0-23 and pads with leading zero
+    hour = hour % 24
+    if hour < 0:
+        hour += 24
+    return f"{hour:02d}:{minute:02d}"
 
 def main():
-    print("--- Age in Days Calculator ---")
+    print("--- US Time Zone Converter ---")
     try:
-        age_str = input("Please enter your age in years: ")
-        age_years = int(age_str)
+        time_str = input("Enter time in PST (HH:MM): ")
+        
+        # Basic validation for HH:MM format
+        if ':' not in time_str:
+            raise ValueError("Invalid time format. Use HH:MM.")
+            
+        parts = time_str.split(':')
+        hour = int(parts[0])
+        minute = int(parts[1])
 
-        if age_years < 0:
-            print("Age cannot be negative.")
-        else:
-            days = calculate_days_old(age_years)
-            print(f"You are approx. {days} days old!")
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+        if not (0 <= hour <= 23 and 0 <= minute <= 59):
+            raise ValueError("Invalid hour or minute. Hour must be 0-23, minute 0-59.")
+
+        # Conversions relative to PST
+        # EST = PST + 3 hours
+        est_hour = hour + 3
+        est_time = format_time(est_hour, minute)
+
+        # CST = PST + 2 hours
+        cst_hour = hour + 2
+        cst_time = format_time(cst_hour, minute)
+
+        # UTC = PST + 8 hours
+        utc_hour = hour + 8
+        utc_time = format_time(utc_hour, minute)
+
+        print(f"PST: {format_time(hour, minute)}")
+        print(f"EST: {est_time}")
+        print(f"CST: {cst_time}")
+        print(f"UTC: {utc_time}")
+
+    except ValueError as e:
+        print(f"Error: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
     finally:
-        print("--- Thank you for using the calculator! ---")
+        print("--- Conversion complete! ---")
 
 # Run the main function
-main()</code><button class="explain-code-btn">✨ Explain Code</button></div>
+main()</code><button class="explain-code-btn" data-code-id="playground-main">✨ Explain Code</button></div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Simulated Output</h3>
-                        <div id="outputArea" class="output-area"></div>
+                        <div id="outputArea" class="output-area">
+                            <div id="outputAreaContent" class="output-area-content"></div>
+                            <input type="text" id="consoleInput" class="console-input hidden" placeholder="Type here and press Enter...">
+                        </div>
                         <button id="runButton" class="btn-primary w-full mt-4 py-3 rounded-lg font-bold">Run Simulation</button>
                     </div>
                 </div>
@@ -474,8 +526,8 @@ main()</code><button class="explain-code-btn">✨ Explain Code</button></div>
 
                 <div class="bg-white p-6 rounded-xl shadow-sm">
                     <h3 class="text-2xl font-bold text-[#5d4037] mb-4">✨ Python Concept Clarifier</h3>
-                    <p class="text-gray-600 mb-4">Enter a Python concept or keyword below, and I'll try to provide a simple explanation using AI.</p>
-                    <input type="text" id="conceptInput" placeholder="e.g., 'mutable', 'decorator', 'class'" class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-[#8d6e63]">
+                    <p class="text-gray-600 mb-4">Enter a Python concept or keyword below, and I'll try to provide a simple explanation from a pre-defined list.</p>
+                    <input type="text" id="conceptInput" placeholder="e.g., 'mutable', 'tuple', 'loop'" class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-[#8d6e63]">
                     <button id="clarifyConceptButton" class="btn-primary w-full py-3 rounded-lg font-bold">✨ Clarify Concept</button>
                     <div id="conceptOutput" class="output-area mt-4 text-gray-700 bg-gray-50 border border-gray-200" style="min-height: 80px;"></div>
                 </div>
@@ -544,6 +596,45 @@ main()</code><button class="explain-code-btn">✨ Explain Code</button></div>
                 }
             };
 
+            // Preloaded explanations for the Concept Clarifier
+            const preloadedConcepts = {
+                'mutable': 'In Python, a **mutable** object is one whose value can be changed after it is created. Examples include lists and dictionaries.',
+                'immutable': 'In Python, an **immutable** object is one whose value cannot be changed after it is created. Examples include numbers, strings, and tuples.',
+                'tuple': 'A **tuple** is an ordered, immutable collection of items in Python, defined using parentheses `()`. Once created, you cannot change its elements.',
+                'list': 'A **list** is an ordered, mutable collection of items in Python, defined using square brackets `[]`. You can add, remove, or modify elements in a list after it is created.',
+                'dictionary': 'A **dictionary** stores data as key-value pairs. It is mutable, meaning you can add, remove, or modify entries. Keys must be unique.',
+                'variable': 'A **variable** is a named storage location in programming. It holds a value that can be changed as the program runs.',
+                'function': 'A **function** is a block of organized, reusable code that performs a specific task. Functions help make your code modular and easier to manage.',
+                'loop': 'A **loop** in programming is used to execute a block of code repeatedly. Python has `for` loops (for iterating over sequences) and `while` loops (for repeating as long as a condition is true).',
+                'if statement': 'An **if statement** allows your program to make decisions. It executes a block of code only if a specified condition is true.',
+                'operator': 'An **operator** is a symbol that performs an operation on one or more values (operands). Examples include arithmetic operators (`+`, `-`) and comparison operators (`==`, `>`).',
+                'string': 'A **string** is a sequence of characters, used for text. In Python, strings are immutable and are enclosed in single quotes (`\'`) or double quotes (`"`).',
+                'integer': 'An **integer** (`int`) is a whole number (positive, negative, or zero) without a decimal point.',
+                'float': 'A **float** (`float`) is a number with a decimal point, used to represent real numbers.',
+                'boolean': 'A **boolean** (`bool`) represents a truth value: either `True` or `False`. They are often used in conditional statements.'
+            };
+
+            // Preloaded code explanations (moved from data-explanation attributes)
+            const preloadedCodeExplanations = {
+                'var-int': 'This line creates a **variable** named `age` and assigns it the **integer** value `30`. Variables are like containers for storing information.',
+                'var-float': 'Here, a variable named `price` is created and given a **floating-point number** (a number with a decimal) value of `19.99`.',
+                'var-string': 'These lines create two **string** variables: `name` holds the text \'Alice\', and `message` holds \'Hello, world!\'. Strings are used for text.',
+                'var-bool': 'This creates a **boolean** variable called `is_active` and sets its value to `True`. Booleans can only be `True` or `False` and are used for conditions.',
+                'op-arithmetic': 'These lines demonstrate **arithmetic operators**. `+` adds numbers, `**` performs exponentiation (2 to the power of 3), and `%` gives the remainder of a division (10 divided by 3 leaves 1).',
+                'op-comparison': 'This shows **comparison operators**. `==` checks if two values are equal, `>` checks if the left is greater than the right, and `!=` checks if they are not equal. They all return `True` or `False`.',
+                'op-logical': 'These are **logical operators**. `and` returns `True` if both conditions are true. `or` returns `True` if at least one condition is true. `not` reverses the truth value of a condition.',
+                'cf-if-elif-else': 'This demonstrates `if`, `elif`, and `else` statements for **conditional logic**. The code checks `temperature`. Since `temperature` is 25, the `elif temperature > 20` condition is met, and \'It\'s a pleasant day.\' will be printed.',
+                'cf-for-loop': 'This is a `for` loop, used for **iterating** over a sequence. It will print each `fruit` in the `fruits` list, one by one: \'apple\', \'banana\', \'cherry\'.',
+                'cf-while-loop': 'This is a `while` loop, which **repeats** a block of code as long as a condition is true. It will print \'Count: 0\', then \'Count: 1\', then \'Count: 2\', and stop when `count` becomes 3.',
+                'ds-list': 'This demonstrates a **list**, an ordered and mutable collection. It creates a list, adds `True` to the end, changes the first element to \'world\', and then prints the modified list.',
+                'ds-tuple': 'This shows a **tuple**, an ordered and immutable collection. It creates a tuple and prints its second element (\'hello\'). The commented line shows that you cannot change items in a tuple after it\'s created.',
+                'ds-dict': 'This illustrates a **dictionary**, which stores data as key-value pairs. It creates a dictionary `person`, adds an \'age\' key, and then prints the value associated with the \'name\' key (\'Bob\').',
+                'func-define-call': 'This defines a **function** named `greet` that takes a `name` as input. When `greet(\'Team\')` is called, it executes the code inside, printing \'Hello, Team!\' to the console.',
+                'func-return': 'This function `add_numbers` takes two inputs (`a`, `b`), adds them, and `returns` their sum. The `sum_result` variable then stores the value returned by calling `add_numbers(10, 7)`, which is `17`.',
+                'playground-main': 'This Python script converts a time from PST to EST, CST, and UTC. It defines a `format_time` helper to handle 24-hour clock rollovers. The `main` function takes user input for a time in PST (HH:MM), parses it, and then calculates the corresponding times in other US time zones and UTC by adding fixed hour offsets. It includes basic error handling for invalid time formats or values.'
+            };
+
+
             function showSection(hash) {
                 const targetId = hash ? hash.substring(1) : 'welcome';
                 
@@ -584,43 +675,88 @@ main()</code><button class="explain-code-btn">✨ Explain Code</button></div>
             showSection(window.location.hash);
 
             const runButton = document.getElementById('runButton');
-            const outputArea = document.getElementById('outputArea');
+            const outputAreaContent = document.getElementById('outputAreaContent');
+            const consoleInput = document.getElementById('consoleInput');
+            let resolveInputPromise; // To hold the promise resolver for input
 
             runButton.addEventListener('click', async () => {
-                outputArea.textContent = '';
+                outputAreaContent.textContent = '';
+                consoleInput.value = '';
+                consoleInput.classList.add('hidden'); // Hide input initially
                 runButton.disabled = true;
                 runButton.textContent = 'Running...';
 
                 function printToOutput(text) {
-                    outputArea.textContent += text + '\n';
+                    outputAreaContent.textContent += text + '\n';
+                    outputAreaContent.scrollTop = outputAreaContent.scrollHeight; // Scroll to bottom
                 }
 
                 async function inputFromUser(prompt) {
-                    printToOutput(prompt);
-                    const userInput = window.prompt(prompt);
-                    printToOutput('> ' + (userInput || ''));
-                    return userInput || '';
+                    return new Promise(resolve => {
+                        printToOutput(prompt);
+                        consoleInput.classList.remove('hidden');
+                        consoleInput.focus();
+                        resolveInputPromise = resolve; // Store resolver
+                    });
+                }
+
+                consoleInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault(); // Prevent new line in input field
+                        const userInput = consoleInput.value;
+                        printToOutput('> ' + userInput); // Echo user input
+                        consoleInput.value = '';
+                        consoleInput.classList.add('hidden'); // Hide input after submission
+                        if (resolveInputPromise) {
+                            resolveInputPromise(userInput); // Resolve the promise with user input
+                        }
+                    }
+                });
+
+                // Helper to format time and handle 24-hour rollover
+                function formatTime(hour, minute) {
+                    hour = hour % 24;
+                    if (hour < 0) hour += 24; // Handle negative hours from subtraction
+                    return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
                 }
 
                 try {
-                    printToOutput("--- Age in Days Calculator ---");
-                    const age_str = await inputFromUser("Please enter your age in years: ");
-                    const age_years = parseInt(age_str, 10);
+                    printToOutput("--- US Time Zone Converter ---");
+                    const time_str = await inputFromUser("Enter time in PST (HH:MM): ");
+                    
+                    const parts = time_str.split(':');
+                    if (parts.length !== 2) {
+                        throw new Error('Invalid time format. Use HH:MM.');
+                    }
+                    let hour = parseInt(parts[0], 10);
+                    let minute = parseInt(parts[1], 10);
 
-                    if (isNaN(age_years)) {
-                        throw new Error('ValueError');
+                    if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+                        throw new Error('Invalid hour or minute. Hour must be 0-23, minute 0-59.');
                     }
 
-                    if (age_years < 0) {
-                        printToOutput("Age cannot be negative.");
-                    } else {
-                        const days = age_years * 365;
-                        printToOutput(`You are approx. ${days} days old!`);
-                    }
+                    // Conversions relative to PST
+                    // EST = PST + 3 hours
+                    let est_hour = hour + 3;
+                    let est_time = formatTime(est_hour, minute);
+
+                    // CST = PST + 2 hours
+                    let cst_hour = hour + 2;
+                    let cst_time = formatTime(cst_hour, minute);
+
+                    // UTC = PST + 8 hours
+                    let utc_hour = hour + 8;
+                    let utc_time = formatTime(utc_hour, minute);
+
+                    printToOutput(`PST: ${formatTime(hour, minute)}`);
+                    printToOutput(`EST: ${est_time}`);
+                    printToOutput(`CST: ${cst_time}`);
+                    printToOutput(`UTC: ${utc_time}`);
+
                 } catch (e) {
-                    printToOutput("Invalid input. Please enter a number.");
+                    printToOutput(`Error: ${e.message}`);
                 } finally {
-                    printToOutput("--- Thank you for using the calculator! ---");
+                    printToOutput("--- Conversion complete! ---");
                 }
                 
                 runButton.disabled = false;
@@ -646,61 +782,17 @@ main()</code><button class="explain-code-btn">✨ Explain Code</button></div>
             }
             window.copyCode = copyCode; 
 
-            // Gemini API Integration
-            async function callGeminiApi(prompt) {
-                const maxRetries = 3;
-                let retryCount = 0;
-                const apiKey = ""; 
-
-                while (retryCount < maxRetries) {
-                    try {
-                        const chatHistory = [];
-                        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                        const payload = { contents: chatHistory };
-                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-                        
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-
-                        const result = await response.json();
-                        if (result.candidates && result.candidates.length > 0 &&
-                            result.candidates[0].content && result.candidates[0].content.parts &&
-                            result.candidates[0].content.parts.length > 0) {
-                            return result.candidates[0].content.parts[0].text;
-                        } else {
-                            throw new Error("Invalid API response structure.");
-                        }
-                    } catch (error) {
-                        retryCount++;
-                        if (retryCount < maxRetries) {
-                            const delay = Math.pow(2, retryCount) * 1000; 
-                            await new Promise(res => setTimeout(res, delay));
-                        } else {
-                            console.error("Gemini API call failed after multiple retries:", error);
-                            return "Error: Could not retrieve explanation. Please try again.";
-                        }
-                    }
-                }
-            }
-
-            // Code Explanation Feature
+            // Code Explanation Feature (now using preloaded data from preloadedCodeExplanations object)
             explainCodeButtons.forEach(button => {
-                button.addEventListener('click', async () => {
-                    const codeBlock = button.parentElement;
-                    const code = codeBlock.querySelector('code').innerText;
-                    
-                    showModal('Loading explanation...');
+                button.addEventListener('click', () => {
+                    const codeId = button.dataset.codeId; // Get the unique ID for the code snippet
+                    const explanation = preloadedCodeExplanations[codeId]; // Look up explanation in the object
 
-                    const prompt = `Explain the following Python code snippet in a simple, beginner-friendly way:\n\n\`\`\`python\n${code}\n\`\`\``;
-                    const explanation = await callGeminiApi(prompt);
-                    updateModalContent(explanation);
+                    if (explanation) {
+                        showModal(explanation);
+                    } else {
+                        showModal('No explanation available for this snippet.');
+                    }
                 });
             });
 
@@ -725,21 +817,16 @@ main()</code><button class="explain-code-btn">✨ Explain Code</button></div>
                 modalExplanationContent.innerHTML = content;
             }
 
-            // Concept Clarifier Feature
-            clarifyConceptButton.addEventListener('click', async () => {
-                const concept = conceptInput.value.trim();
-                if (!concept) {
-                    conceptOutput.textContent = "Please enter a concept to clarify.";
-                    return;
+            // Concept Clarifier Feature (using preloaded data)
+            clarifyConceptButton.addEventListener('click', () => {
+                const concept = conceptInput.value.trim().toLowerCase();
+                let explanation = preloadedConcepts[concept];
+
+                if (explanation) {
+                    conceptOutput.textContent = explanation;
+                } else {
+                    conceptOutput.textContent = `Sorry, '${concept}' is not in our pre-defined list of concepts. Try one of these: mutable, immutable, tuple, list, dictionary, variable, function, loop, if statement, operator, string, integer, float, boolean.`;
                 }
-
-                conceptOutput.textContent = "Clarifying concept...";
-                clarifyConceptButton.disabled = true;
-
-                const prompt = `Explain the Python concept or keyword '${concept}' in a concise and easy-to-understand manner for a beginner.`;
-                const explanation = await callGeminiApi(prompt);
-                conceptOutput.textContent = explanation;
-                clarifyConceptButton.disabled = false;
             });
 
             // Quiz Functions
