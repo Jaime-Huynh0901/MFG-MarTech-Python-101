@@ -194,6 +194,7 @@
                     <a href="#data-structures" class="nav-link block p-3 rounded-lg">Data Structures</a>
                     <a href="#functions" class="nav-link block p-3 rounded-lg">Functions</a>
                 </div>
+                <a href="#martech-usage-case" class="nav-link block p-3 rounded-lg">MarTech Usage Case</a>
                 <a href="#playground" class="nav-link block p-3 rounded-lg">Code Playground</a>
                 <a href="#resources" class="nav-link block p-3 rounded-lg">Next Steps</a>
             </nav>
@@ -208,34 +209,48 @@
                 <p class="text-lg text-gray-600 mb-6">This interactive guide is designed to introduce you to the fundamental concepts of Python. Navigate through the topics using the sidebar to learn at your own pace. Python is a high-level, interpreted, general-purpose programming language known for its emphasis on code readability.</p>
                 
                 <div class="bg-white p-6 rounded-xl shadow-sm">
-                    <h3 class="text-2xl font-bold text-[#5d4037] mb-4">Why is Python so Popular?</h3>
+                    <h3 class="text-2xl font-bold text-[#5d4037] mb-4">Why is Python so popular, especially for AI and smart tools?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex items-start space-x-4">
-                            <span class="text-3xl">✨</span>
+                            <span class="text-3xl">🗣️</span>
                             <div>
-                                <h4 class="font-bold text-lg">Simplicity & Readability</h4>
-                                <p class="text-gray-600">Its clean syntax resembles natural language, making it easy to learn and understand.</p>
+                                <h4 class="font-bold text-lg">Easy to learn and understand</h4>
+                                <p class="text-gray-600">Python is like speaking a simple language. Its instructions are clear, making it friendly for anyone to pick up, even if you're not a coding expert.</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
-                            <span class="text-3xl">📚</span>
+                            <span class="text-3xl">🧰</span>
                             <div>
-                                <h4 class="font-bold text-lg">Vast Ecosystem of Libraries</h4>
-                                <p class="text-gray-600">Access extensive libraries for AI, data science, web development, and more (e.g., NumPy, TensorFlow).</p>
+                                <h4 class="font-bold text-lg">Tons of ready-to-use tools</h4>
+                                <p class="text-gray-600">Imagine having a huge toolbox filled with specialized gadgets. Python has an enormous collection of pre-built modules and libraries. For things like understanding customer data, creating reports, or building smart automation, tools like NumPy, Pandas, Scikit-learn, TensorFlow, and PyTorch are game-changers.</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
-                            <span class="text-3xl">🤸</span>
+                            <span class="text-3xl">📊</span>
                             <div>
-                                <h4 class="font-bold text-lg">Flexibility</h4>
-                                <p class="text-gray-600">Supports multiple programming paradigms like object-oriented and functional programming.</p>
+                                <h4 class="font-bold text-lg">MarTech Uses</h4>
+                                <p class="text-gray-600">These tools help us analyze data to see how campaigns are performing, create reports for stakeholders, automate repetitive tasks in our data pipelines (like cleaning up data in Airflow), build connections (API calls) for server-to-server data transfers, manage Conversion APIs, work with Customer Data Platforms (CDP), and handle data securely in data clean rooms.</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
-                            <span class="text-3xl">🌐</span>
+                            <span class="text-3xl">🔄</span>
                             <div>
-                                <h4 class="font-bold text-lg">Platform Independence</h4>
-                                <p class="text-gray-600">Write code once and run it on Windows, macOS, or Linux without modification.</p>
+                                <h4 class="font-bold text-lg">Super flexible</h4>
+                                <p class="text-gray-600">Python can adapt to different ways of building software, whether you're organizing your code in a structured way or creating specific functions.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">🌍</span>
+                            <div>
+                                <h4 class="font-bold text-lg">Works everywhere</h4>
+                                <p class="text-gray-600">You can write Python code on one computer (Windows, Mac, or Linux) and it will run on any other, without needing changes.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">🤝</span>
+                            <div>
+                                <h4 class="font-bold text-lg">Lots of help available</h4>
+                                <p class="text-gray-600">There's a huge and active community of Python users and developers who are always contributing new ideas and ready to help if you get stuck.</p>
                             </div>
                         </div>
                     </div>
@@ -435,6 +450,93 @@ print(f"The sum is: {sum_result}")</code><button class="explain-code-btn" data-c
                 </div>
             </section>
 
+            <!-- MarTech Usage Case Section -->
+            <section id="martech-usage-case" class="content-section">
+                <h2 class="text-4xl font-bold text-[#5d4037] mb-4">MarTech Usage Case: Automating Google Ads Reports with Airflow</h2>
+                <p class="text-lg text-gray-600 mb-6">Python is a cornerstone in Marketing Technology (MarTech) for automating complex data workflows. One powerful example is using Apache Airflow, an open-source platform to programmatically author, schedule, and monitor workflows (DAGs - Directed Acyclic Graphs), to pull data from APIs like Google Ads.</p>
+                <p class="text-lg text-gray-600 mb-6">This simplified example shows the structure of an Airflow DAG written in Python. It defines tasks to extract data from Google Ads, process it, and load it, demonstrating how Python connects different systems for automated reporting.</p>
+                
+                <div class="grid grid-cols-1 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Airflow DAG Example (Simplified)</h3>
+                        <div class="code-block h-full">
+                            <button onclick="copyCode(this)">Copy</button>
+                            <pre><code>from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime, timedelta
+
+# This function would interact with the Google Ads API
+def extract_google_ads_data(**kwargs):
+    print("Extracting data from Google Ads API...")
+    # Placeholder for actual Google Ads API client code
+    # from google.ads.googleads.client import GoogleAdsClient
+    # client = GoogleAdsClient.load_from_storage('google-ads.yaml')
+    # ... call API methods to get report data ...
+    report_data = ["Impressions: 1000", "Clicks: 50"] # Mock data
+    kwargs['ti'].xcom_push(key='google_ads_report', value=report_data)
+    print("Google Ads data extracted.")
+
+def process_data(**kwargs):
+    ti = kwargs['ti']
+    raw_data = ti.xcom_pull(key='google_ads_report', task_ids='extract_data_from_google_ads')
+    print(f"Processing raw data: {raw_data}")
+    # Placeholder for data transformation logic (e.g., Pandas)
+    processed_data = [item.replace(":", " =") for item in raw_data]
+    kwargs['ti'].xcom_push(key='processed_report', value=processed_data)
+    print("Data processed.")
+
+def load_data(**kwargs):
+    ti = kwargs['ti']
+    final_data = ti.xcom_pull(key='processed_report', task_ids='process_report_data')
+    print(f"Loading final data: {final_data}")
+    # Placeholder for loading data to a database, GCS, BigQuery, etc.
+    print("Data loaded successfully.")
+
+with DAG(
+    dag_id='google_ads_daily_report',
+    start_date=datetime(2023, 1, 1),
+    schedule_interval=timedelta(days=1), # Run daily
+    catchup=False,
+    tags=['martech', 'google_ads', 'reporting'],
+    description='A daily DAG to pull and process Google Ads data.'
+) as dag:
+    extract_task = PythonOperator(
+        task_id='extract_data_from_google_ads',
+        python_callable=extract_google_ads_data,
+        provide_context=True,
+    )
+
+    process_task = PythonOperator(
+        task_id='process_report_data',
+        python_callable=process_data,
+        provide_context=True,
+    )
+
+    load_task = PythonOperator(
+        task_id='load_processed_data',
+        python_callable=load_data,
+        provide_context=True,
+    )
+
+    # Define task dependencies: extract -> process -> load
+    extract_task >> process_task >> load_task
+</code></pre>
+                            <button class="explain-code-btn" data-code-id="martech-airflow-dag">✨ Explain Code</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm mt-8">
+                    <h3 class="text-2xl font-bold text-[#5d4037] mb-4">Quiz Practice: MarTech Usage Case</h3>
+                    <div id="martech-usage-case-quiz-container">
+                        <p id="martech-usage-case-quiz-question" class="text-lg mb-4"></p>
+                        <div id="martech-usage-case-quiz-options" class="space-y-2"></div>
+                        <button class="btn-primary mt-4 py-2 px-4 rounded-lg font-bold" onclick="checkQuizAnswer('martech-usage-case')">Check Answer</button>
+                        <div id="martech-usage-case-quiz-feedback" class="quiz-feedback hidden"></div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Code Playground Section -->
             <section id="playground" class="content-section">
                 <h2 class="text-4xl font-bold text-[#5d4037] mb-4">Code Playground: Time Zone Converter</h2>
@@ -442,7 +544,9 @@ print(f"The sum is: {sum_result}")</code><button class="explain-code-btn" data-c
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Python Code</h3>
-                        <div class="code-block h-full"><button onclick="copyCode(this)">Copy</button><code>def format_time(hour, minute):
+                        <div class="code-block h-full">
+                            <button onclick="copyCode(this)">Copy</button>
+                            <pre><code>def format_time(hour, minute):
     # Ensures hour is within 0-23 and pads with leading zero
     hour = hour % 24
     if hour < 0:
@@ -491,7 +595,9 @@ def main():
         print("--- Conversion complete! ---")
 
 # Run the main function
-main()</code><button class="explain-code-btn" data-code-id="playground-main">✨ Explain Code</button></div>
+main()</code></pre>
+                            <button class="explain-code-btn" data-code-id="playground-main">✨ Explain Code</button>
+                        </div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold mb-2">Simulated Output</h3>
@@ -593,6 +699,16 @@ main()</code><button class="explain-code-btn" data-code-id="playground-main">✨
                     question: "What will be printed when `greet('World')` is called, given: `def greet(name): print(f'Hello, {name}!')`?",
                     options: ["greet('World')", "Hello, name!", "Hello, World!", "Error"],
                     answer: "Hello, World!"
+                },
+                'martech-usage-case': {
+                    question: "In the provided Airflow DAG example, what is the primary purpose of the `PythonOperator`?",
+                    options: [
+                        "To define the schedule interval for the DAG",
+                        "To execute a Python callable function as a task",
+                        "To establish dependencies between tasks",
+                        "To load data into a database"
+                    ],
+                    answer: "To execute a Python callable function as a task"
                 }
             };
 
@@ -631,7 +747,8 @@ main()</code><button class="explain-code-btn" data-code-id="playground-main">✨
                 'ds-dict': 'This illustrates a **dictionary**, which stores data as key-value pairs. It creates a dictionary `person`, adds an \'age\' key, and then prints the value associated with the \'name\' key (\'Bob\').',
                 'func-define-call': 'This defines a **function** named `greet` that takes a `name` as input. When `greet(\'Team\')` is called, it executes the code inside, printing \'Hello, Team!\' to the console.',
                 'func-return': 'This function `add_numbers` takes two inputs (`a`, `b`), adds them, and `returns` their sum. The `sum_result` variable then stores the value returned by calling `add_numbers(10, 7)`, which is `17`.',
-                'playground-main': 'This Python script converts a time from PST to EST, CST, and UTC. It defines a `format_time` helper to handle 24-hour clock rollovers. The `main` function takes user input for a time in PST (HH:MM), parses it, and then calculates the corresponding times in other US time zones and UTC by adding fixed hour offsets. It includes basic error handling for invalid time formats or values.'
+                'playground-main': 'This Python script converts a time from PST to EST, CST, and UTC. It defines a `format_time` helper to handle 24-hour clock rollovers. The `main` function takes user input for a time in PST (HH:MM), parses it, and then calculates the corresponding times in other US time zones and UTC by adding fixed hour offsets. It includes basic error handling for invalid time formats or values.',
+                'martech-airflow-dag': 'This is a simplified Apache Airflow DAG (Directed Acyclic Graph) written in Python. It defines a workflow with three tasks: `extract_google_ads_data` (simulates pulling data from Google Ads API), `process_data` (simulates transforming the data), and `load_data` (simulates loading the data to a destination). The `>>` operator defines the order of execution (extract then process then load). This demonstrates how Python is used to orchestrate automated data pipelines in MarTech.'
             };
 
 
